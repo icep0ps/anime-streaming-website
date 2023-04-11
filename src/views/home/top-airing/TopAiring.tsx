@@ -1,12 +1,31 @@
-import React from 'react';
+import useSWR from 'swr';
+import { topAiring } from '../../../api/fetchers';
+import Anime from '../../../common/components/Anime';
 
-type Props = {};
+const TopAiring = () => {
+  const { data, isLoading } = useSWR(
+    `${process.env.GOGO_ANIME_BASE_URL}top-airing`,
+    topAiring
+  );
 
-const TopAiring = (props: Props) => {
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
-    <div>
-      <h1>TopAiring</h1>
-    </div>
+    <article className="">
+      <header>
+        <h1>TopAiring</h1>
+      </header>
+      <section className="flex flex-wrap gap-2">
+        {data ? (
+          data.map((anime) => {
+            const { id, title, image } = anime;
+            return <Anime key={id} title={title} image={image} />;
+          })
+        ) : (
+          <h1>could not find any anime </h1>
+        )}
+      </section>
+    </article>
   );
 };
 
