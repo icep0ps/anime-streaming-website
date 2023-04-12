@@ -1,18 +1,17 @@
 import 'swiper/css';
+import useSWR from 'swr';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
-import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { trendingAnime } from '../../../api/fetchers';
 
 type Props = {};
 
 const Trending = (props: Props) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {}, []);
+  const { data, isLoading } = useSWR('http://localhost:3000/trending', trendingAnime);
 
   if (isLoading) return <h1>Loading...</h1>;
 
