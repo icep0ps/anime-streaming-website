@@ -6,28 +6,34 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Slide from './components/Slide';
 import { trendingAnime } from '../../../api/fetchers';
 
 type Props = {};
 
 const Trending = (props: Props) => {
-  const { data, isLoading } = useSWR('http://localhost:3000/trending', trendingAnime);
+  const { data: trending, isLoading } = useSWR(
+    'http://localhost:3000/trending',
+    trendingAnime
+  );
 
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <div className="max-w-fit">
+    <div className="max-w-4xl	 rounded-xl">
       <Swiper
         modules={[Autoplay]}
         slidesPerView={'auto'}
         fadeEffect={{ crossFade: false }}
         autoplay={true}
         loop={true}
+        className="rounded-lg"
       >
-        <SwiperSlide>1</SwiperSlide>
-        <SwiperSlide>2</SwiperSlide>
-        <SwiperSlide>3</SwiperSlide>
-        <SwiperSlide>4</SwiperSlide>
+        {trending?.map((anime) => (
+          <SwiperSlide>
+            <Slide anime={anime}></Slide>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

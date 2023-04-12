@@ -14,3 +14,10 @@ export type PopularAnime = {
   rating: number;
   releaseDate: string;
 };
+
+export type TrendingAnime = {
+  id: string;
+  title: string;
+  description: string;
+  coverImage: string;
+};

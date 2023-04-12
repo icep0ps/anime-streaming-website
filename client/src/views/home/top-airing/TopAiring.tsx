@@ -15,7 +15,7 @@ const TopAiring = () => {
       <header>
         <h1>TopAiring</h1>
       </header>
-      <section className="flex flex-wrap gap-2">
+      <section className="flex flex-wrap gap-2 justify-between">
         {data ? (
           data.map((anime) => {
             const { id, title, image } = anime;
