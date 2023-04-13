@@ -19,10 +19,10 @@ const TopAiring = () => {
         {data ? (
           data.map((anime) => {
             const { id, title, image } = anime;
-            return <Anime key={id} title={title} image={image} />;
+            return <Anime key={id} id={id} title={title} image={image} />;
           })
         ) : (
-          <h1>could not find any anime </h1>
+          <h1>could not find any anime</h1>
         )}
       </section>
     </article>

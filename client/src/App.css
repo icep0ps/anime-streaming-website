@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.App {
+.root {
   max-width: 1250px;
   width: 55%;
   margin: 0px auto;

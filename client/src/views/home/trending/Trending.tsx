@@ -5,8 +5,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Autoplay } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import Slide from './components/Slide';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { trendingAnime } from '../../../api/fetchers';
 
 type Props = {};

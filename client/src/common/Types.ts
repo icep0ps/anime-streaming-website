@@ -21,3 +21,46 @@ export type TrendingAnime = {
   description: string;
   coverImage: string;
 };
+
+export type AnimeDetails = {
+  id: string;
+  title: string;
+  url: string;
+  image: string;
+  releaseDate: string | null;
+  description: string | null;
+  genres: [string];
+  subOrDub: 'sub' | 'dub';
+  type: string | null;
+  status: string;
+  otherName: string | null;
+  totalEpisodes: number;
+  episodes: [
+    {
+      id: string;
+      number: number;
+      url: string;
+    }
+  ];
+};
+
+export type Episode = {
+  id: string;
+  number: number;
+  url: string;
+};
+
+export type StreamingLinkDetails = {
+  headers: {
+    Referer: string;
+    watchsb: string | null;
+    'User-Agent': string | null;
+  };
+  sources: [
+    {
+      url: string;
+      quality: string;
+      isM3U8: boolean;
+    }
+  ];
+};
