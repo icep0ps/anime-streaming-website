@@ -1,3 +1,4 @@
+import Search from './components/Search';
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +9,7 @@ const Root = (props: Props) => {
     <main className="root">
       <nav className="flex justify-between">
         <h1>Forge</h1>
+        <Search />
         <ul className="flex  gap-3 justify-evenly w-1/4">
           <Link to={'/'}>
             <li>Home</li>

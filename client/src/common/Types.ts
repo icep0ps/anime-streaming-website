@@ -64,3 +64,17 @@ export type StreamingLinkDetails = {
     }
   ];
 };
+
+export type SeachResults = {
+  currentPage: number;
+  hasNextPage: boolean;
+  results: [
+    {
+      id: string;
+      title: string;
+      image: string;
+      releaseDate: string | null;
+      subOrDub: 'sub' | 'dub';
+    }
+  ];
+};

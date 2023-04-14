@@ -6,6 +6,7 @@ import {
   TrendingAnime,
   AnimeDetails,
   StreamingLinkDetails,
+  SeachResults,
 } from '../common/Types';
 
 export const topAiring: Fetcher<TopAiringAnime[]> = (url: string) =>
@@ -29,4 +30,7 @@ export const getAnimeDetails: Fetcher<AnimeDetails> = (url: string) =>
   axios.get(url).then((res) => res.data);
 
 export const getStreamingLink: Fetcher<StreamingLinkDetails> = (url: string) =>
+  axios.get(url).then((res) => res.data);
+
+export const search: Fetcher<SeachResults> = (url: string) =>
   axios.get(url).then((res) => res.data);

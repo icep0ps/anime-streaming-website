@@ -3,7 +3,7 @@ import React from 'react';
 import Home from './views/home/Home';
 import Watch from './views/watch/Watch';
 import ReactDOM from 'react-dom/client';
-import Root from './common/components/Root';
+import Root from './common/components/root/Root';
 import ErrorPage from './views/error/error-page';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
