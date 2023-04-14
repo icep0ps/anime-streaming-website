@@ -15,13 +15,6 @@ export type PopularAnime = {
   releaseDate: string;
 };
 
-export type TrendingAnime = {
-  id: string;
-  title: string;
-  description: string;
-  coverImage: string;
-};
-
 export type AnimeDetails = {
   id: string;
   title: string;
@@ -42,6 +35,13 @@ export type AnimeDetails = {
       url: string;
     }
   ];
+};
+
+export type TrendingAnime = AnimeDetails & {
+  id: string;
+  title: string;
+  description: string;
+  coverImage: string;
 };
 
 export type Episode = {
