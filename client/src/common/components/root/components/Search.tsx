@@ -42,7 +42,7 @@ const Results = ({ query }: RProps) => {
     return (
       <div className="absolute z-10 bg-white">
         {topResults.map((anime) => (
-          <Anime title={anime.title} image={anime.image}></Anime>
+          <Anime id={anime.id} title={anime.title} image={anime.image}></Anime>
         ))}
       </div>
     );

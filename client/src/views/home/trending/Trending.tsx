@@ -13,7 +13,7 @@ type Props = {};
 
 const Trending = (props: Props) => {
   const { data: trending, isLoading } = useSWR(
-    'http://localhost:3000/trending',
+    'http://localhost:2000/trending',
     trendingAnime
   );
 

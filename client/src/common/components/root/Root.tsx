@@ -15,7 +15,7 @@ const Root = (props: Props) => {
             <li>Home</li>
           </Link>
           <li>Trending</li>
-          <li>Profile</li>
+          <li>{'Sign in'}</li>
         </ul>
       </nav>
       <Outlet />

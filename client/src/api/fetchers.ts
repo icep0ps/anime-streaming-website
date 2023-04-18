@@ -34,3 +34,11 @@ export const getStreamingLink: Fetcher<StreamingLinkDetails> = (url: string) =>
 
 export const search: Fetcher<SeachResults> = (url: string) =>
   axios.get(url).then((res) => res.data);
+
+export const isUserLoggedIn = (url: string) => {
+  return axios
+    .get(url, {
+      withCredentials: true,
+    })
+    .then((res) => res.data);
+};

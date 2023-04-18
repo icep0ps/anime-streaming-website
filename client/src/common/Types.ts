@@ -78,3 +78,5 @@ export type SeachResults = {
     }
   ];
 };
+
+export type User = { userId: string; username: string };
