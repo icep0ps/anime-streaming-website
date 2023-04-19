@@ -5,6 +5,7 @@ import Trending from './trending/Trending';
 import TopAiring from './top-airing/TopAiring';
 import useStore from '../../common/state/store';
 import { isUserLoggedIn } from '../../api/fetchers';
+import ContinueWatching from './continue-watching/ContinueWatching';
 
 type Props = {};
 
@@ -19,7 +20,7 @@ const Home = (props: Props) => {
   if (isLoading) return <h1>Loading...</h1>;
 
   if (user) {
-    setUser(user);
+    setUser(user.user);
   }
 
   return (
@@ -27,6 +28,7 @@ const Home = (props: Props) => {
       <section>
         <Trending />
         <TopAiring />
+        {user && <ContinueWatching />}
       </section>
       <aside>
         <TopAnime />

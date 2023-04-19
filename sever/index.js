@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const { User, Anime } = Schemas;
+const { User, Anime, ContinueWatchingAnime } = Schemas;
 
 const client = new MongoClient(url, {
   serverApi: {
@@ -34,34 +34,16 @@ async function connect() {
 }
 connect();
 
-app.get('/trending', async (req, res) => {
-  try {
-    await client.connect();
-    await client.db('admin').command({ ping: 1 });
-
-    const data = [];
-    const database = client.db('meta');
-    const trending = await database.collection('trending');
-    await trending.find().forEach((anime) => data.push(anime));
-    res.json({ data: data });
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send('sorry an unexpected error occured');
-  } finally {
-    await client.close();
-  }
-});
-
 app.post('/signup', (req, res) => {
   const { username, password } = req.body;
 
   bcrypt.hash(password, 10, function (err, hash) {
     if (err) {
-      res.status(400).redirect('/');
+      res.status(400).redirect('/signup');
     }
     const user = new User({ username, password: hash });
-    user.save().catch((err) => res.status(400).redirect('/'));
-    res.status(200).redirect('/');
+    user.save().catch((err) => res.status(400).json({ msg: 'err' }));
+    res.status(200).redirect('http://localhost:3000/');
   });
 });
 
@@ -94,6 +76,61 @@ app.get('/isLoggedIn', verifyToken, async (req, res) => {
   } else {
     res.status(401).json({ user: undefined });
   }
+});
+
+app.get('/trending', async (req, res) => {
+  try {
+    await client.connect();
+    await client.db('admin').command({ ping: 1 });
+
+    const data = [];
+    const database = client.db('meta');
+    const trending = await database.collection('trending');
+    await trending.find().forEach((anime) => data.push(anime));
+    res.json({ data: data });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('sorry an unexpected error occured');
+  } finally {
+    await client.close();
+  }
+});
+
+app.get('/continueWatching', async (req, res) => {
+  const userId = req.query.userId;
+
+  const watching = await User.findOne(
+    { _id: userId },
+    { _id: 0, continueWatching: 1 }
+  ).catch((err) => res.status(400).json({ msg: err }));
+
+  res.status(200).json(watching);
+});
+
+app.post('/continueWatching', verifyToken, async (req, res) => {
+  const userId = req.user.userId;
+  const body = req.body.arg;
+
+  const user = await User.findOne({ _id: userId });
+  const userHasWatchedAnime = user.continueWatching.some((anime) => anime.id === body.id);
+
+  if (userHasWatchedAnime) {
+    await User.findOneAndUpdate(
+      { _id: userId, 'continueWatching.id': body.id },
+      { $set: { 'continueWatching.$.continueFrom': body.continueFrom } }
+    ).catch((err) => {
+      res.status(400).json({ msg: err });
+    });
+  } else {
+    await User.findOneAndUpdate(
+      { _id: userId },
+      { $push: { continueWatching: body } }
+    ).catch((err) => {
+      res.status(400).json({ msg: 'erro saving' });
+    });
+  }
+
+  res.status(200).json({ msg: 'saved' });
 });
 
 app.listen(PORT, () => {

@@ -1,3 +1,4 @@
+import useStore from '../../state/store';
 import Search from './components/Search';
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -5,6 +6,8 @@ import { Link } from 'react-router-dom';
 type Props = {};
 
 const Root = (props: Props) => {
+  const user = useStore((state) => state.user);
+
   return (
     <main className="root">
       <nav className="flex justify-between">
@@ -15,7 +18,7 @@ const Root = (props: Props) => {
             <li>Home</li>
           </Link>
           <li>Trending</li>
-          <li>{'Sign in'}</li>
+          <li>{user ? `${user.username}` : 'sign in'}</li>
         </ul>
       </nav>
       <Outlet />

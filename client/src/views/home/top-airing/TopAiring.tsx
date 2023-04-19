@@ -13,7 +13,7 @@ const TopAiring = () => {
   return (
     <article className="">
       <header>
-        <h1>TopAiring</h1>
+        <h1>Top airing</h1>
       </header>
       <section className="flex flex-wrap gap-2 justify-between">
         {data ? (

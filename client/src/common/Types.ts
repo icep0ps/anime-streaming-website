@@ -35,6 +35,7 @@ export type AnimeDetails = {
       url: string;
     }
   ];
+  continueFrom?: string;
 };
 
 export type TrendingAnime = AnimeDetails & {

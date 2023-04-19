@@ -42,3 +42,23 @@ export const isUserLoggedIn = (url: string) => {
     })
     .then((res) => res.data);
 };
+
+export const getWatching = (args) => {
+  const [url, userId] = args;
+  console.log(userId);
+  return axios
+    .get(url, {
+      params: {
+        userId,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      return res.data.continueWatching;
+    });
+};
+type test = AnimeDetails & { continueFrom: string; lastUpdated: string };
+
+export const addToWatching = (url: string, arg: { arg: test }) => {
+  return axios.post(url, { ...arg }, { method: 'POST', withCredentials: true });
+};

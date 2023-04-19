@@ -32,4 +32,27 @@ const Anime = mongoose.Schema({
   ],
 });
 
-module.exports = { User, Anime };
+const ContinueWatchingAnime = mongoose.Schema({
+  id: String,
+  title: String,
+  url: String,
+  image: String,
+  releaseDate: { type: [Date, null] },
+  description: { type: [String, null] },
+  genres: [String],
+  subOrDub: { type: String, enum: ['sub', 'dub'] },
+  type: { type: [String, null] },
+  status: String,
+  otherName: { type: [String, null] },
+  totalEpisodes: Number,
+  episodes: [
+    {
+      id: String,
+      number: Number,
+      url: String,
+    },
+  ],
+  continueFrom: String,
+});
+
+module.exports = { User, Anime, ContinueWatchingAnime };

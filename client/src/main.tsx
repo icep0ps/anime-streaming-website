@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       {
         path: '/signup',
-        element: <Signup action="http://localhost:3000/signup" type="signup" />,
+        element: <Signup action="http://localhost:2000/signup" type="signup" />,
       },
       {
         path: '/signin',
@@ -30,7 +30,5 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
 );
