@@ -7,6 +7,7 @@ type Props = {};
 
 const Root = (props: Props) => {
   const user = useStore((state) => state.user);
+  console.log(user);
 
   return (
     <main className="root">
@@ -18,7 +19,11 @@ const Root = (props: Props) => {
             <li>Home</li>
           </Link>
           <li>Trending</li>
-          <li>{user ? `${user.username}` : 'sign in'}</li>
+          <Link
+            to={user ? 'http://localhost:2000/signout' : 'http://localhost:3000/signin'}
+          >
+            <li>{user ? `${user.username}` : 'sign in'}</li>
+          </Link>
         </ul>
       </nav>
       <Outlet />

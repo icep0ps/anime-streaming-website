@@ -35,17 +35,17 @@ export const getStreamingLink: Fetcher<StreamingLinkDetails> = (url: string) =>
 export const search: Fetcher<SeachResults> = (url: string) =>
   axios.get(url).then((res) => res.data);
 
-export const isUserLoggedIn = (url: string) => {
+export const isUserLoggedIn = () => {
   return axios
-    .get(url, {
+    .get('http://localhost:2000/isLoggedIn', {
       withCredentials: true,
     })
-    .then((res) => res.data);
+    .then((res) => res.data.user)
+    .catch((err) => null);
 };
 
-export const getWatching = (args) => {
+export const getWatching = (args: [url: string, userId: string]) => {
   const [url, userId] = args;
-  console.log(userId);
   return axios
     .get(url, {
       params: {

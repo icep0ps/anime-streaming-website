@@ -43,6 +43,8 @@ app.post('/signup', (req, res) => {
     }
     const user = new User({ username, password: hash });
     user.save().catch((err) => res.status(400).json({ msg: 'err' }));
+    const token = createToken(user);
+    res.cookie('x-access-token', token, { httpOnly: true });
     res.status(200).redirect('http://localhost:3000/');
   });
 });
@@ -131,6 +133,11 @@ app.post('/continueWatching', verifyToken, async (req, res) => {
   }
 
   res.status(200).json({ msg: 'saved' });
+});
+
+app.get('/signout', (req, res) => {
+  res.clearCookie('x-access-token');
+  res.status(200).redirect('http://localhost:3000/');
 });
 
 app.listen(PORT, () => {

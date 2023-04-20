@@ -12,6 +12,7 @@ const Player = ({ streamingLink }: Props) => {
         allowFullScreen={true}
         scrolling="no"
         className="w-full h-full rounded-xl"
+        allow="autoplay"
       />
     </div>
   );

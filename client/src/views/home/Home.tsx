@@ -1,26 +1,20 @@
 import '../../App.css';
-import useSWR from 'swr';
 import TopAnime from './sidebars/TopAnime';
+import { User } from '../../common/Types';
 import Trending from './trending/Trending';
 import TopAiring from './top-airing/TopAiring';
 import useStore from '../../common/state/store';
-import { isUserLoggedIn } from '../../api/fetchers';
+import { useLoaderData } from 'react-router-dom';
 import ContinueWatching from './continue-watching/ContinueWatching';
 
 type Props = {};
 
 const Home = (props: Props) => {
   const setUser = useStore((state) => state.setUser);
-
-  const { data: user, isLoading } = useSWR(
-    'http://localhost:2000/isLoggedIn',
-    isUserLoggedIn
-  );
-
-  if (isLoading) return <h1>Loading...</h1>;
+  const user = useLoaderData() as User;
 
   if (user) {
-    setUser(user.user);
+    setUser(user);
   }
 
   return (

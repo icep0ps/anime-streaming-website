@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 type Props = {
   action: string;
@@ -28,7 +29,22 @@ const Signup = ({ action, type }: Props) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button>create account</button>
+        <button>{type === 'signin' ? 'Login' : 'Create an account'}</button>
+        {type === 'signin' ? (
+          <div>
+            <h1>Dont have an account ?</h1>
+            <Link to={'/signup'}>
+              <button> Create an account</button>
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <h1>Already have an account ?</h1>
+            <Link to={'/signin'}>
+              <button>Login</button>
+            </Link>
+          </div>
+        )}
       </form>
     </div>
   );

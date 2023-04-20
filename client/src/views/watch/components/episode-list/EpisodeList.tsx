@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Episode } from '../../../../common/Types';
 
 type Props = {
@@ -14,9 +14,16 @@ const EpisodeList = ({ episodes }: Props) => {
           const { id, number, url } = episode;
 
           return (
-            <Link to={`/watch/${id}`}>
-              <li>Episode {number}</li>
-            </Link>
+            <li>
+              <NavLink
+                to={`/watch/${id}`}
+                className={({ isActive }: { isActive: boolean }) =>
+                  isActive ? 'bg-orange-500 ' : ''
+                }
+              >
+                Episode {number}
+              </NavLink>
+            </li>
           );
         })}
       </ul>
