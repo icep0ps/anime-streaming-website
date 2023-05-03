@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <Signup action="http://localhost:2000/signin" type="signin" />,
       },
       { path: 'watch/:episodeid', element: <Watch /> },
-      { path: 'details/:animeid', element: <Details /> },
+      { path: 'details/:animetitle/:animeid', element: <Details /> },
     ],
   },
 ]);

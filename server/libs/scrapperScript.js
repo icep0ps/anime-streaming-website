@@ -63,6 +63,7 @@ const StartScrappingContent = async () => {
     await new Promise((resolve, reject) => {
       sliders.forEach(async (currentValue, currentIndex) => {
         const title = currentValue.querySelector('.desi-head-title').innerText;
+        const description = currentValue.querySelector('.desi-description').innerText;
         const coverImage = currentValue
           .querySelector('.film-poster-img')
           .getAttribute('src');
@@ -84,6 +85,7 @@ const StartScrappingContent = async () => {
 
         data.push({
           ...anime,
+          description,
           coverImage,
         });
         if (currentIndex === Array.from(sliders).length - 1) resolve();

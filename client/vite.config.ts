@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [react()],
   define: {
     'process.env': {
-      ANILIST_BASE_URL: 'https://api.consumet.org/meta/anilist/',
+      ANILIST_BASE_URL: 'https://api.consumet.org/meta/anilist',
       GOGO_ANIME_BASE_URL: 'https://api.consumet.org/anime/gogoanime/',
       REACT_APP_CLERK_PUBLISHABLE_KEY:
         'pk_test_c3VwZXItd29vZGNvY2stMjkuY2xlcmsuYWNjb3VudHMuZGV2JA',

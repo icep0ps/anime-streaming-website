@@ -1,9 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .root {
   max-width: 1250px;
-  width: 55%;
+  width: 75%;
   margin: 0px auto;
+}
+
+@layer base {
+  html {
+    color: white;
+    background-color: #161616;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1 {
+    @apply text-2xl font-normal;
+  }
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg font-semibold py-2;
+  }
+
+  p {
+    @apply text-sm;
+  }
+  button {
+    @apply p-2 bg-main rounded-lg;
+  }
+}
+
+@layer components {
+  .summary {
+    @apply absolute top-36 left-14 w-64 z-10 bg-secondBg rounded-xl p-4;
+  }
 }

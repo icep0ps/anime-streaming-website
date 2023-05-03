@@ -1,50 +1,55 @@
-import useSWR from 'swr';
 import { useEffect } from 'react';
-import useSWRMutation from 'swr/mutation';
+import { Helmet } from 'react-helmet';
+import useFetch from './hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import useStore from '../../common/state/store';
 import Player from './components/player/Player';
+import Section from '../../common/components/Section';
 import EpisodeList from './components/episode-list/EpisodeList';
-import { getStreamingLink, addToWatching } from '../../api/fetchers';
-import AnimeDetails from './components/anime-details/AnimeDetails';
 
 const Watch = () => {
-  const episodeId = useParams().episodeid;
-  const anime = useStore((state) => state.anime);
+  const episodeid = useParams().episodeid;
   const user = useStore((state) => state.user);
-
-  const { trigger } = useSWRMutation(
-    'http://localhost:2000/continueWatching',
-    addToWatching
-  );
-
-  const { data, isLoading } = useSWR(
-    `${process.env.GOGO_ANIME_BASE_URL}watch/${episodeId}`,
-    getStreamingLink
-  );
+  const anime = useStore((state) => state.anime);
+  const episode = useStore((state) => state.episode);
+  const { streamingLink, addAnimeToWatching, isLoading } = useFetch({
+    episodeid,
+  });
 
   useEffect(() => {
     if (user) {
       const data = {
         ...anime,
-        continueFrom: episodeId,
+        continueFrom: episodeid,
         lastUpdated: Date.now(),
       };
-      trigger(data);
+      addAnimeToWatching(data);
     }
-  }, [episodeId]);
+  }, [episodeid]);
 
   if (isLoading) return <h1>Loading...</h1>;
 
-  if (data) {
-    const { headers } = data;
+  if (streamingLink && anime) {
+    const { headers } = streamingLink;
+    const { title, episodes, recommendations } = anime;
 
     return (
-      <section className=" p-5 grid grid-cols-[2fr_minmax(900px,_1fr)_500px] grid-rows-2	">
-        <Player streamingLink={headers.Referer} />
-        <AnimeDetails anime={anime} />
-        <EpisodeList episodes={anime?.episodes} />
-      </section>
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Watch {title.english || title.romaji} on Forge</title>
+        </Helmet>
+        <section className=" p-5 flex flex-wrap gap-10">
+          <section className="flex gap-3">
+            <Player streamingLink={headers.Referer} anime={anime} episode={episode} />
+            <EpisodeList episodes={episodes} />
+          </section>
+          <Section
+            heading="Recommendations"
+            animes={recommendations.slice(0, 12)}
+          ></Section>
+        </section>
+      </>
     );
   }
 

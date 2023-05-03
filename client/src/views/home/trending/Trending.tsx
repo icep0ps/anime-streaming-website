@@ -1,35 +1,35 @@
 import 'swiper/css';
+import '../../../App.css';
 import useSWR from 'swr';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { Autoplay } from 'swiper';
+import 'swiper/css/effect-fade';
+import { Autoplay, EffectFade } from 'swiper';
 import Slide from './components/Slide';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { trendingAnime } from '../../../api/fetchers';
+import { AnimeDetails } from '../../../common/Types';
 
-type Props = {};
+type Props = {
+  animes: AnimeDetails[];
+};
 
-const Trending = (props: Props) => {
-  const { data: trending, isLoading } = useSWR(
-    'http://localhost:2000/trending',
-    trendingAnime
-  );
-
-  if (isLoading) return <h1>Loading...</h1>;
+const SpolightBanner = (props: Props) => {
+  const { animes } = props;
 
   return (
-    <div className="max-w-4xl	 rounded-xl">
+    <div className=" rounded-xl ">
       <Swiper
-        modules={[Autoplay]}
+        modules={[Autoplay, EffectFade]}
         slidesPerView={'auto'}
-        fadeEffect={{ crossFade: false }}
+        effect={'fade'}
         autoplay={true}
         loop={true}
-        className="rounded-lg"
+        className="rounded-2xl w-[99%] h-96 "
       >
-        {trending?.map((anime) => (
+        {animes.map((anime) => (
           <SwiperSlide>
             <Slide anime={anime}></Slide>
           </SwiperSlide>
@@ -38,4 +38,4 @@ const Trending = (props: Props) => {
     </div>
   );
 };
-export default Trending;
+export default SpolightBanner;

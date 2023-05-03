@@ -3,58 +3,58 @@ import useStore from '../state/store';
 import { Link } from 'react-router-dom';
 import { getAnimeDetails } from '../../api/fetchers';
 import { useState } from 'react';
+import { AnimeDetails } from '../Types';
 
 type Props = {
-  id: string;
-  title: string;
-  image: string;
-  continueFrom: string;
+  anime: AnimeDetails;
+  continueFrom?: string;
 };
 
-const Anime = ({ id, title, image, continueFrom }: Props) => {
+const Anime = ({ anime, continueFrom }: Props) => {
   const setAnime = useStore((state) => state.setAnime);
   const [showSummary, setShowSummary] = useState(true);
+  const { id, title, image, totalEpisodes, type, status, genres, releaseDate } = anime;
 
-  const { data: anime, isLoading } = useSWR(
-    `${process.env.GOGO_ANIME_BASE_URL}info/${id}`,
-    getAnimeDetails
-  );
-
-  if (isLoading) return <h1>Loading...</h1>;
-
-  if (anime) {
-    const { episodes } = anime;
-    const episodeOne = episodes[0].id;
-
-    return (
-      <Link
-        to={continueFrom ? `watch/${continueFrom}` : `watch/${episodeOne}`}
-        onClick={() => setAnime(anime)}
+  return (
+    <Link
+      to={
+        continueFrom ? `/watch/${continueFrom}` : `/details/${title.userPreferred}/${id}`
+      }
+      onClick={() => setAnime(anime)}
+    >
+      <article
+        className="w-40 h-full relative"
+        onMouseEnter={() => setShowSummary(false)}
+        onMouseLeave={() => setShowSummary(true)}
       >
-        <article
-          className="w-40 h-68 relative"
-          onMouseEnter={() => setShowSummary(false)}
-          onMouseLeave={() => setShowSummary(true)}
-        >
-          <div className="h-5/6">
-            <img src={image} className="h-full w-full rounded-lg"></img>
+        <div className=" relative h-60">
+          <span className="bg-main p-1 rounded-md absolute m-2 text-xs">HD</span>
+          <img src={image} className="h-full w-full rounded-lg object-cover"></img>
+        </div>
+        <header>
+          <h3 className="font-normal text-sm text-center line-clamp-2 break-all	">
+            {title.userPreferred}
+          </h3>
+        </header>
+        <div hidden={showSummary} className="summary">
+          <h3 className="text-base line-clamp-1 break-words	">{title.userPreferred}</h3>
+          <span className="text-xs py-2">
+            {status} {totalEpisodes}
+          </span>
+          <p className="line-clamp-4 text-xs my-2">{anime.description}</p>
+          <ul className="text-xs">
+            <li>Aired: {releaseDate}</li>
+            <li>Type: {type}</li>
+            <li className="line-clamp-1	">Genres: {genres?.join(' ,')}</li>
+          </ul>
+          <div className="flex gap-2">
+            <button className="text-xs my-2 ">Details</button>
+            <button className="text-xs my-2">Details</button>
           </div>
-          <h1>{title || anime.title}</h1>
-          <div
-            hidden={showSummary}
-            className="absolute top-14 bg-white left-14 w-52 z-10"
-          >
-            <h3>{title || anime.title}</h3>
-            <span>Episodes: {anime.totalEpisodes}</span>
-            <p className="line-clamp-4	">{anime.description}</p>
-            <button>Details</button>
-          </div>
-        </article>
-      </Link>
-    );
-  }
-
-  return <h1>Error</h1>;
+        </div>
+      </article>
+    </Link>
+  );
 };
 
 export default Anime;

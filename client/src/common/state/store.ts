@@ -1,19 +1,23 @@
 import { create } from 'zustand';
-import { AnimeDetails, User } from '../Types';
+import { IAnime, Episode, User } from '../Types';
 
 interface StoreState {
   user: User | undefined;
-  anime: AnimeDetails | undefined;
-  setAnime: (anime: AnimeDetails | undefined) => void;
+  anime: IAnime | undefined;
+  episode: Episode | undefined;
+  setAnime: (anime: IAnime | undefined) => void;
   setUser: (user: User) => void;
+  setEpisode: (episode: Episode) => void;
 }
 
 const useStore = create<StoreState>((set) => ({
   anime: undefined,
   user: undefined,
+  episode: undefined,
 
   setUser: (user: User) => set((state) => ({ user: user })),
   setAnime: (anime) => set((state) => ({ anime: anime })),
+  setEpisode: (episode: Episode) => set((state) => ({ episode: episode })),
 }));
 
 export default useStore;

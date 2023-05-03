@@ -1,44 +1,79 @@
-export type TopAiringAnime = {
-  id: 'string';
-  title: 'string';
-  image: 'string';
-  releaseDate: 'string' | null;
-  subOrDub: 'sub' | 'dub';
-};
-
-export type PopularAnime = {
+export type IAnime = {
   id: string;
-  title: { romaji: string; english: string; native: string; userPreferred: string };
+  title: {
+    english: string;
+    romaji: string;
+    native: string;
+    userPreferred: string;
+  };
+  malId: number;
+  trailer: {
+    id: string;
+    site: string;
+    thumbnail: string;
+  };
   image: string;
-  type: string;
-  rating: number;
-  releaseDate: string;
-};
-
-export type AnimeDetails = {
-  id: string;
-  title: string;
-  url: string;
-  image: string;
-  releaseDate: string | null;
-  description: string | null;
-  genres: [string];
-  subOrDub: 'sub' | 'dub';
-  type: string | null;
+  popularity: number;
+  color: string;
+  description: string;
   status: string;
-  otherName: string | null;
-  totalEpisodes: number;
-  episodes: [
-    {
-      id: string;
-      number: number;
-      url: string;
-    }
-  ];
+  releaseDate: number;
+  startDate: {
+    year: number;
+    month: number;
+    day: number;
+  };
+  endDate: {
+    year: number;
+    month: number;
+    day: number;
+  };
+  rating: number;
+  genres: string[];
+  season: string;
+  studios: string[];
+  type: string;
+  recommendations: {
+    id: string;
+    malId: string;
+    title: string[];
+    status: string;
+    episodes: number;
+    image: string;
+    cover: string;
+    rating: number;
+    type: string;
+  }[];
+  characters: {
+    id: string;
+    role: string;
+    name: string[];
+    image: string;
+  }[];
+  relations: {
+    id: number;
+    relationType: string;
+    malId: number;
+    title: string[];
+    status: string;
+    episodes: number;
+    image: string;
+    color: string;
+    type: string;
+    cover: string;
+    rating: number;
+  }[];
+  episodes: {
+    id: string;
+    title: string;
+    episode: string;
+    number: number;
+    description: string;
+  }[];
   continueFrom?: string;
 };
 
-export type TrendingAnime = AnimeDetails & {
+export type TrendingAnime = IAnime & {
   id: string;
   title: string;
   description: string;
@@ -47,8 +82,10 @@ export type TrendingAnime = AnimeDetails & {
 
 export type Episode = {
   id: string;
+  title: string;
+  episode: string;
   number: number;
-  url: string;
+  description: string;
 };
 
 export type StreamingLinkDetails = {

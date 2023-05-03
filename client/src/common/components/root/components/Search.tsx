@@ -17,6 +17,7 @@ const Search = (props: Props) => {
           placeholder="Search anime..."
           value={query}
           onChange={(event) => setQuery(event.target.value)}
+          className="p-3 rounded-lg outline-none bg-dark text-sm"
         ></input>
       </form>
       {queryIsNotEmpty && <Results query={query}></Results>}
@@ -29,7 +30,7 @@ type RProps = {
 };
 
 const Results = ({ query }: RProps) => {
-  const url = `${process.env.GOGO_ANIME_BASE_URL}${query}`;
+  const url = [`${process.env.ANILIST_BASE_URL}/advanced-search`, query];
   const { data, isLoading, error } = useSWR(url, search);
 
   if (isLoading) return <h1 className="absolute z-10 bg-white">Loading...</h1>;
@@ -40,10 +41,10 @@ const Results = ({ query }: RProps) => {
     const { results } = data;
     const topResults = results.slice(0, 5);
     return (
-      <div className="absolute z-10 bg-white">
-        {topResults.map((anime) => (
-          <Anime id={anime.id} title={anime.title} image={anime.image}></Anime>
-        ))}
+      <div className="absolute z-10 text-white bg-secondBg p-2 rounded-lg">
+        {topResults?.map((anime) => {
+          return <Anime anime={anime}></Anime>;
+        })}
       </div>
     );
   } else {

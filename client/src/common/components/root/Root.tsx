@@ -7,13 +7,14 @@ type Props = {};
 
 const Root = (props: Props) => {
   const user = useStore((state) => state.user);
-  console.log(user);
 
   return (
     <main className="root">
-      <nav className="flex justify-between">
-        <h1>Forge</h1>
-        <Search />
+      <nav className="flex justify-between py-5 px-3 ">
+        <div className="flex items-center justify-between w-3/12">
+          <h1>Forge</h1>
+          <Search />
+        </div>
         <ul className="flex  gap-3 justify-evenly w-1/4">
           <Link to={'/'}>
             <li>Home</li>
