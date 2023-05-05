@@ -15,7 +15,7 @@ const Slide = ({ anime }: Props) => {
     <div
       className="bg-cover	h-full object-cover w-full "
       style={{
-        backgroundImage: `-webkit-linear-gradient(90deg,#161616 10%,rgba(22,22,22,0.40) 50%,rgba(22,22,22,0) 60%,rgba(22,22,22,10%) 70%,#161616 100%) ,url(${coverImage}) `,
+        backgroundImage: `-webkit-linear-gradient(90deg,#161616 10%,rgba(22,22,22,0.40) 50%) ,url(${coverImage}) `,
         backgroundRepeat: 'no-repeat',
       }}
     >
@@ -27,7 +27,9 @@ const Slide = ({ anime }: Props) => {
 
         <div className="flex w-fit">
           <Link to={`watch/${episodeOne}`} onClick={() => setAnime(anime)}>
-            <button className="p-3 w-28 text-sm bg-white text-dark ">Watch Now</button>
+            <button className="p-3 w-28 text-sm bg-white text-dark rounded-md">
+              Watch Now
+            </button>
           </Link>
         </div>
       </header>

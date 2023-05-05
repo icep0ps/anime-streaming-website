@@ -1,9 +1,8 @@
 import './index.css';
-import Home from './views/home/Home';
-import Watch from './views/watch/Watch';
+import { lazy } from 'react';
+import { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import Signup from './views/signup/Signup';
-import Details from './views/details/Details';
 import { isUserLoggedIn } from './api/fetchers';
 import Root from './common/components/root/Root';
 import ErrorPage from './views/error/error-page';
@@ -14,7 +13,15 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-      { path: '/', element: <Home />, loader: isUserLoggedIn },
+      {
+        path: '/',
+        element: (() => {
+          const Home = lazy(() => import('./views/home/Home'));
+          return <Home />;
+        })(),
+
+        loader: isUserLoggedIn,
+      },
       {
         path: '/signup',
         element: <Signup action="http://localhost:2000/signup" type="signup" />,
@@ -23,12 +30,33 @@ const router = createBrowserRouter([
         path: '/signin',
         element: <Signup action="http://localhost:2000/signin" type="signin" />,
       },
-      { path: 'watch/:episodeid', element: <Watch /> },
-      { path: 'details/:animetitle/:animeid', element: <Details /> },
+      {
+        path: '/search/:animeid',
+        element: (() => {
+          const Search = lazy(() => import('./views/search/Search'));
+          return <Search />;
+        })(),
+      },
+      {
+        path: 'watch/:episodeid',
+        element: (() => {
+          const Watch = lazy(() => import('./views/watch/Watch'));
+          return <Watch />;
+        })(),
+      },
+      {
+        path: 'details/:animetitle/:animeid',
+        element: (() => {
+          const Details = lazy(() => import('./views/details/Details'));
+          return <Details />;
+        })(),
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <RouterProvider router={router} />
+  <Suspense fallback={<h1>Loading...</h1>}>
+    <RouterProvider router={router} />
+  </Suspense>
 );

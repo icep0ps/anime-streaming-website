@@ -8,7 +8,11 @@ import {
 } from '../common/Types';
 
 export const Apifetcher = (url: string) => axios.get(url).then((res) => res.data.results);
+
 export const Localfetcher = (url: string) => axios.get(url).then((res) => res.data.data);
+
+export const getAnimeDetails: Fetcher<IAnime> = (url: string) =>
+  axios.get(url).then((res) => res.data);
 
 export const topAnime: Fetcher<IAnime[]> = (url: string) =>
   axios.get(url).then((res) => res.data.results);
@@ -24,9 +28,6 @@ export const trendingAnime: Fetcher<IAnime[]> = (url: string) =>
     })
     .then((res) => res.data.data);
 
-export const getAnimeDetails: Fetcher<IAnime> = (url: string) =>
-  axios.get(url).then((res) => res.data);
-
 export const getStreamingLink: Fetcher<StreamingLinkDetails> = (url: string) =>
   axios.get(url).then((res) => res.data);
 
@@ -38,7 +39,7 @@ export const search = (args: [url: string, query: string]) => {
         query,
       },
     })
-    .then((res) => res.data);
+    .then((res) => res.data.results);
 };
 
 export const isUserLoggedIn = () => {

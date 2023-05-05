@@ -3,17 +3,17 @@ import useStore from '../state/store';
 import { Link } from 'react-router-dom';
 import { getAnimeDetails } from '../../api/fetchers';
 import { useState } from 'react';
-import { AnimeDetails } from '../Types';
+import { IAnime } from '../Types';
 
 type Props = {
-  anime: AnimeDetails;
+  anime: IAnime;
   continueFrom?: string;
 };
 
 const Anime = ({ anime, continueFrom }: Props) => {
   const setAnime = useStore((state) => state.setAnime);
   const [showSummary, setShowSummary] = useState(true);
-  const { id, title, image, totalEpisodes, type, status, genres, releaseDate } = anime;
+  const { id, title, image, popularity, type, status, genres, releaseDate } = anime;
 
   return (
     <Link
@@ -29,28 +29,38 @@ const Anime = ({ anime, continueFrom }: Props) => {
       >
         <div className=" relative h-60">
           <span className="bg-main p-1 rounded-md absolute m-2 text-xs">HD</span>
-          <img src={image} className="h-full w-full rounded-lg object-cover"></img>
+          <img src={image} className="h-full w-full rounded-md object-cover"></img>
         </div>
         <header>
-          <h3 className="font-normal text-sm text-center line-clamp-2 break-all	">
+          <h3 className="font-normal text-xs mt-2 text-center line-clamp-2 	">
             {title.userPreferred}
           </h3>
         </header>
-        <div hidden={showSummary} className="summary">
-          <h3 className="text-base line-clamp-1 break-words	">{title.userPreferred}</h3>
+        <div
+          hidden={showSummary}
+          className="absolute bg-thirdBg top-16 left-20 w-60 z-10 p-3 rounded-lg "
+        >
+          <h3 className="text-sm line-clamp-1 break-words	">{title.userPreferred}</h3>
           <span className="text-xs py-2">
-            {status} {totalEpisodes}
+            {status} {popularity}
           </span>
-          <p className="line-clamp-4 text-xs my-2">{anime.description}</p>
-          <ul className="text-xs">
-            <li>Aired: {releaseDate}</li>
-            <li>Type: {type}</li>
-            <li className="line-clamp-1	">Genres: {genres?.join(' ,')}</li>
-          </ul>
-          <div className="flex gap-2">
-            <button className="text-xs my-2 ">Details</button>
-            <button className="text-xs my-2">Details</button>
-          </div>
+          {anime.description ? (
+            <>
+              <p className="line-clamp-4 text-xs ">{anime.description}</p>
+              <ul className="text-xs">
+                <li>Type: {type}</li>
+                <li>Aired: {releaseDate}</li>
+                <li className="flex gap-2 flex-wrap">
+                  Genres:
+                  {genres.map((genre) => (
+                    <span className="text-main text-xs">{genre}</span>
+                  ))}
+                </li>
+              </ul>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </article>
     </Link>

@@ -1,30 +1,27 @@
 import useSWR from 'swr';
 import { Helmet } from 'react-helmet';
+import useFetch from './hooks/useFetch';
 import useStore from '../../common/state/store';
 import { Link, useParams } from 'react-router-dom';
-import { getAnimeDetails } from '../../api/fetchers';
 
 type Props = {};
 
 const Details = (props: Props) => {
-  const animeId = useParams().animeid;
+  const animeid = useParams().animeid;
+  const { anime, isLoading } = useFetch(animeid);
   const setAnime = useStore((state) => state.setAnime);
   const setEpisode = useStore((state) => state.setEpisode);
 
-  const { data, isLoading } = useSWR(
-    `${process.env.ANILIST_BASE_URL}/info/${animeId}`,
-    getAnimeDetails
-  );
-
   if (isLoading) return <h1>Loading...</h1>;
-
-  if (data) {
-    const { title, description, episodes, image } = data;
+  console.log(anime);
+  if (anime) {
+    const { title: titles, description, episodes, image } = anime;
+    const title = titles.english || titles.romaji;
     return (
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Watch {title.english || title.romaji} on Forge</title>
+          <title>Watch {title} on Forge</title>
         </Helmet>
         <main className="flex justify-center ">
           <section className="flex flex-col w-5/6  mt-10">
@@ -36,9 +33,12 @@ const Details = (props: Props) => {
                   className="object-cover w-full h-full rounded-lg"
                 />
               </div>
-              <header className="w-5/6">
-                <h1>{title.english || title.romaji}</h1>
-                <p dangerouslySetInnerHTML={{ __html: description || 'not found' }}></p>
+              <header className="flex w-5/6 flex-col gap-5">
+                <h1 className="text-2xl">{title}</h1>
+                <p
+                  dangerouslySetInnerHTML={{ __html: description || 'not found' }}
+                  className="text-sm"
+                ></p>
               </header>
             </div>
 
@@ -51,7 +51,7 @@ const Details = (props: Props) => {
                     <Link
                       to={`/watch/${id}`}
                       onClick={() => {
-                        setAnime(data);
+                        setAnime(anime);
                         setEpisode(episode);
                       }}
                     >

@@ -12,15 +12,38 @@ const EpisodeList = (props: Props) => {
 
   return (
     <aside className="	w-full ">
-      <h1 className="mb-4">Available episode</h1>
-      <ul className="flex flex-col gap-3 h-[680px] w-full overflow-scroll	">
+      <h3 className="mb-4">Available episode</h3>
+      <ul
+        className={`flex gap-3 h-[680px] w-full overflow-y-scroll scroll  ${
+          episodes && episodes.length > 25 ? 'flex-wrap' : 'flex-col'
+        }`}
+      >
         {episodes ? (
           episodes.map((episode) => {
             const { id, number, title } = episode;
 
+            if (episodes.length > 25) {
+              return (
+                <li
+                  className="p-3 bg-thirdBg rounded-lg text-xs w-10 whitespace-nowrap flex justify-center h-fit"
+                  onClick={() => setEpisode(episode)}
+                  title={title}
+                >
+                  <NavLink
+                    to={`/watch/${id}`}
+                    className={({ isActive }: { isActive: boolean }) =>
+                      isActive ? 'bg-orange-500 ' : ''
+                    }
+                  >
+                    {number}
+                  </NavLink>
+                </li>
+              );
+            }
+
             return (
               <li
-                className="p-3 bg-thirdBg rounded-lg text-sm"
+                className="p-3 bg-thirdBg rounded-lg text-xs w-full h-fit"
                 onClick={() => setEpisode(episode)}
               >
                 <NavLink

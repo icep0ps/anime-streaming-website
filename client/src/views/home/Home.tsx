@@ -1,4 +1,3 @@
-import '../../App.css';
 import { Helmet } from 'react-helmet';
 import useFetch from './hooks/useFetch';
 import { User } from '../../common/Types';
@@ -6,12 +5,14 @@ import PopularAnime from './sidebars/PopularAnime';
 import SpolightBanner from './trending/Trending';
 import useStore from '../../common/state/store';
 import { useLoaderData } from 'react-router-dom';
+import { startTransition } from 'react';
 import Section from '../../common/components/Section';
 
 type Props = {};
 
 const Home = (props: Props) => {
   const user = useLoaderData() as User;
+
   const setUser = useStore((state) => state.setUser);
   const {
     Spotlight,
@@ -23,7 +24,9 @@ const Home = (props: Props) => {
     FETCH_COUNT,
   } = useFetch();
   if (user) {
-    setUser(user);
+    startTransition(() => {
+      setUser(user);
+    });
   }
 
   if (pagesReady.size !== FETCH_COUNT) return <h1>Loading...</h1>;

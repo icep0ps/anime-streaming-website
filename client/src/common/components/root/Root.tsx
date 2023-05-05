@@ -1,3 +1,4 @@
+import '../../../App.css';
 import useStore from '../../state/store';
 import Search from './components/Search';
 import { Outlet } from 'react-router-dom';
@@ -12,10 +13,10 @@ const Root = (props: Props) => {
     <main className="root">
       <nav className="flex justify-between py-5 px-3 ">
         <div className="flex items-center justify-between w-3/12">
-          <h1>Forge</h1>
+          <h1 className="whitespace-nowrap mr-10">Forge streaming</h1>
           <Search />
         </div>
-        <ul className="flex  gap-3 justify-evenly w-1/4">
+        <ul className="flex  gap-3 justify-evenly w-1/4 text-sm">
           <Link to={'/'}>
             <li>Home</li>
           </Link>
