@@ -9,28 +9,22 @@ type Props = {
 
 const Slide = ({ anime }: Props) => {
   const setAnime = useStore((state) => state.setAnime);
-  const { title, description, coverImage, episodes } = anime;
-  const episodeOne = episodes[0]?.id;
+  const { title, description, cover, link } = anime;
+
   return (
     <div
-      className="bg-cover	h-full object-cover w-full "
+      className="bg-cover	h-full object-cover w-full shadow brightness-90"
       style={{
-        backgroundImage: `-webkit-linear-gradient(90deg,#161616 10%,rgba(22,22,22,0.40) 50%) ,url(${coverImage}) `,
+        backgroundImage: `url(${cover}) `,
         backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
-      <header className=" p-4 z-10 absolute  text-white flex items-end justify-between w-full h-full">
-        <div className="w-3/5">
-          <h1 className=" line-clamp-2">{title}</h1>
+      <header className=" p-4 z-10 absolute  text-white flex items-center w-full h-full">
+        <div className="flex flex-col gap-5 w-3/5 ">
+          <h1 className="line-clamp-2 text-3xl">{title}</h1>
           <p className="line-clamp-3  text-xs">{description}</p>
-        </div>
-
-        <div className="flex w-fit">
-          <Link to={`watch/${episodeOne}`} onClick={() => setAnime(anime)}>
-            <button className="p-3 w-28 text-sm bg-white text-dark rounded-md">
-              Watch Now
-            </button>
-          </Link>
         </div>
       </header>
     </div>

@@ -27,7 +27,7 @@ const SpolightBanner = (props: Props) => {
         loop={true}
         className="rounded-2xl flex-shrink w-full"
       >
-        {animes.map((anime) => (
+        {animes?.map((anime) => (
           <SwiperSlide>
             <Slide anime={anime}></Slide>
           </SwiperSlide>

@@ -37,7 +37,7 @@ app.get('/signout', signOut);
 
 app.get('/trending', getTrending);
 
-app.get('/continueWatching', getContinueWatching);
+app.get('/continueWatching', verifyToken, getContinueWatching);
 
 app.post('/continueWatching', verifyToken, addToWatching);
 

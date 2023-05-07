@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         })(),
       },
       {
-        path: 'watch/:episodeid',
+        path: 'watch/:animeid/:episodeid',
         element: (() => {
           const Watch = lazy(() => import('./views/watch/Watch'));
           return <Watch />;

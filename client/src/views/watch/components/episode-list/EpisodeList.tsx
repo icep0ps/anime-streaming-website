@@ -1,20 +1,23 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { Episode } from '../../../../common/Types';
 import useStore from '../../../../common/state/store';
+import { useEffect } from 'react';
 
 type Props = {
+  animeid: string | undefined;
   episodes: Episode[] | undefined;
 };
 
 const EpisodeList = (props: Props) => {
-  const { episodes } = props;
+  const { animeid, episodes } = props;
+
   const setEpisode = useStore((state) => state.setEpisode);
 
   return (
-    <aside className="	w-full ">
+    <aside className="	w-full overflow-hidden">
       <h3 className="mb-4">Available episode</h3>
       <ul
-        className={`flex gap-3 h-[680px] w-full overflow-y-scroll scroll  ${
+        className={`flex gap-3 h-[680px] w-full overflow-y-scroll scroll ${
           episodes && episodes.length > 25 ? 'flex-wrap' : 'flex-col'
         }`}
       >
@@ -24,37 +27,33 @@ const EpisodeList = (props: Props) => {
 
             if (episodes.length > 25) {
               return (
-                <li
-                  className="p-3 bg-thirdBg rounded-lg text-xs w-10 whitespace-nowrap flex justify-center h-fit"
+                <NavLink
+                  to={`/watch/${animeid}/${id}`}
+                  className={({ isActive }: { isActive: boolean }) =>
+                    isActive
+                      ? 'bg-main p-3 rounded-lg text-xs w-10 whitespace-nowrap flex justify-center h-fit'
+                      : 'p-3 bg-thirdBg rounded-lg text-xs w-10 whitespace-nowrap flex justify-center h-fit'
+                  }
                   onClick={() => setEpisode(episode)}
                   title={title}
                 >
-                  <NavLink
-                    to={`/watch/${id}`}
-                    className={({ isActive }: { isActive: boolean }) =>
-                      isActive ? 'bg-orange-500 ' : ''
-                    }
-                  >
-                    {number}
-                  </NavLink>
-                </li>
+                  {number}
+                </NavLink>
               );
             }
 
             return (
-              <li
-                className="p-3 bg-thirdBg rounded-lg text-xs w-full h-fit"
+              <NavLink
+                to={`/watch/${animeid}/${id}`}
+                className={({ isActive }: { isActive: boolean }) =>
+                  isActive
+                    ? 'bg-main p-3 rounded-lg text-xs w-full h-fit'
+                    : 'bg-thirdBg p-3 rounded-lg text-xs w-full h-fit'
+                }
                 onClick={() => setEpisode(episode)}
               >
-                <NavLink
-                  to={`/watch/${id}`}
-                  className={({ isActive }: { isActive: boolean }) =>
-                    isActive ? 'bg-orange-500 ' : ''
-                  }
-                >
-                  {title ? title : `Episode ${number}`}
-                </NavLink>
-              </li>
+                {title ? `${number}. ${title}` : `Episode ${number}`}
+              </NavLink>
             );
           })
         ) : (

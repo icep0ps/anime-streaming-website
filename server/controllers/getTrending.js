@@ -1,24 +1,31 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
-
-const url = process.env.CONNECTION_STRING;
-
-const client = new MongoClient(url, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 async function getTrending(req, res) {
   try {
-    await client.connect();
-    await client.db('admin').command({ ping: 1 });
+    const html = await axios.get('https://9animetv.to/home').then((res) => res.data);
+    const $ = await cheerio.load(html);
 
     const data = [];
-    const database = client.db('meta');
-    const trending = await database.collection('trending');
-    await trending.find().forEach((anime) => data.push(anime));
+
+    $('div.swiper-wrapper')
+      .find('div.deslide-item')
+      .each((i, element) => {
+        data.push({
+          title: $(
+            $(element).find($('div.deslide-item-content > div.desi-head-title'))
+          ).text(),
+          description: $(
+            $(element).find($('div.deslide-item-content > div.desi-description'))
+          ).text(),
+          cover: $(
+            $(element).find($('div.deslide-cover > div.deslide-cover-img > img'))
+          ).attr('src'),
+          link: $(
+            $(element).find($('div.deslide-item-content > div.desi-buttons > a'))
+          ).attr('href'),
+        });
+      });
     res.json({ data: data });
   } catch (error) {
     console.log(error.message);

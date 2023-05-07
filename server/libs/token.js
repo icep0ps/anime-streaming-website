@@ -9,7 +9,7 @@ function createToken(user) {
 
 function verifyToken(req, res, next) {
   const token = req.cookies['x-access-token'];
-
+  console.log(token);
   try {
     verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {

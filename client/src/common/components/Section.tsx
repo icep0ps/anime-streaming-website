@@ -15,7 +15,7 @@ const Section = (props: Props) => {
         <h1 className="py-3">{heading}</h1>
       </header>
       <section className="flex flex-wrap justify-start gap-6 ">
-        {animes.map((anime) => {
+        {animes?.map((anime) => {
           const { id } = anime;
           return <Anime anime={anime} />;
         })}

@@ -10,8 +10,8 @@ type Props = {
 
 const Player = ({ streamingLink, anime, episode }: Props) => {
   return (
-    <div className="flex flex-col gap-5">
-      <div className="h-[480px] m-0 aspect-video">
+    <div className="flex flex-col gap-5 ">
+      <div className="h-[480px] m-0 aspect-video object-cover">
         <iframe
           src={streamingLink}
           allowFullScreen={true}

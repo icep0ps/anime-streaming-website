@@ -6,6 +6,7 @@ export type IAnime = {
     native: string;
     userPreferred: string;
   };
+  cover: string;
   malId: number;
   trailer: {
     id: string;
@@ -77,7 +78,8 @@ export type TrendingAnime = IAnime & {
   id: string;
   title: string;
   description: string;
-  coverImage: string;
+  cover: string;
+  link: string;
 };
 
 export type Episode = {

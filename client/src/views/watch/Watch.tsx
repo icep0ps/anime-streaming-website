@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import useFetch from './hooks/useFetch';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../common/state/store';
 import Player from './components/player/Player';
@@ -13,8 +13,10 @@ const Watch = () => {
   const animeidfromURL = useParams().animeid;
   const user = useStore((state) => state.user);
   const anime = useStore((state) => state.anime);
+  const setAnime = useStore((state) => state.setAnime);
   const episode = useStore((state) => state.episode);
-  const [animeid, setAnimeid] = useState<string | undefined>();
+  const setEpisode = useStore((state) => state.setEpisode);
+  const [animeid, setAnimeid] = useState<string | undefined>(undefined);
   const { streamingLink, addAnimeToWatching, isLoading } = useFetch({
     episodeid,
   });
@@ -37,6 +39,11 @@ const Watch = () => {
   if (isLoading && isAnimeLoading) return <h1>Loading...</h1>;
 
   if (streamingLink && (anime || animeFromAPI)) {
+    if (animeFromAPI) {
+      setEpisode(animeFromAPI.episodes.filter((ep) => ep.id !== episodeid)[0]);
+      setAnime(animeFromAPI);
+    }
+
     const { headers } = streamingLink;
     const { title, episodes, recommendations } = anime;
 
@@ -49,7 +56,7 @@ const Watch = () => {
         <section className=" p-5 flex flex-wrap gap-10">
           <section className="flex gap-3 w-full">
             <Player streamingLink={headers.Referer} anime={anime} episode={episode} />
-            <EpisodeList episodes={episodes} />
+            <EpisodeList animeid={animeid || animeidfromURL} episodes={episodes} />
           </section>
           <Section
             heading="Recommendations"
@@ -59,8 +66,6 @@ const Watch = () => {
       </>
     );
   }
-
-  return <h1>Error</h1>;
 };
 
 export default Watch;

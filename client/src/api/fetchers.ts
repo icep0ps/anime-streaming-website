@@ -9,7 +9,8 @@ import {
 
 export const Apifetcher = (url: string) => axios.get(url).then((res) => res.data.results);
 
-export const Localfetcher = (url: string) => axios.get(url).then((res) => res.data.data);
+export const Localfetcher = (url: string) =>
+  axios.get(url, { withCredentials: true }).then((res) => res.data.data);
 
 export const getAnimeDetails: Fetcher<IAnime> = (url: string) =>
   axios.get(url).then((res) => res.data);

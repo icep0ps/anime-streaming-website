@@ -29,15 +29,13 @@ async function addToWatching(req, res) {
 
 async function getContinueWatching(req, res) {
   const { User } = Schemas;
-
-  const userId = req.query.userId;
-
-  const watching = await User.findOne(
-    { _id: userId },
-    { _id: 0, continueWatching: 1 }
-  ).catch((err) => res.status(403).json({ msg: `user not authed ${err}` }));
-
-  res.status(200).json(watching);
+  try {
+    const userId = req.user.userId;
+    const watching = await User.findOne({ _id: userId }, { _id: 0, continueWatching: 1 });
+    res.status(200).json({ data: [...watching.continueWatching] });
+  } catch (err) {
+    res.status(403).json({ msg: `user not authed ${err}` });
+  }
 }
 
 module.exports = { addToWatching, getContinueWatching };

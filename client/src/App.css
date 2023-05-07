@@ -18,7 +18,15 @@
   }
 }
 html::-webkit-scrollbar {
-  display: none;
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  /* Firefox */
+  display: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.shadow {
+  -webkit-box-shadow: 400px 3px 92px 21px rgba(20, 20, 20, 1) inset;
 }

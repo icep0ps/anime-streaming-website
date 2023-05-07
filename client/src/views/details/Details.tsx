@@ -13,9 +13,8 @@ const Details = (props: Props) => {
   const setEpisode = useStore((state) => state.setEpisode);
 
   if (isLoading) return <h1>Loading...</h1>;
-  console.log(anime);
   if (anime) {
-    const { title: titles, description, episodes, image } = anime;
+    const { title: titles, description, episodes, image, cover } = anime;
     const title = titles.english || titles.romaji;
     return (
       <>
@@ -24,7 +23,11 @@ const Details = (props: Props) => {
           <title>Watch {title} on Forge</title>
         </Helmet>
         <main className="flex justify-center ">
-          <section className="flex flex-col w-5/6  mt-10">
+          <section className="flex flex-col w-5/6  mt-10 gap-5">
+            <div
+              style={{ backgroundImage: `url(${cover})`, backgroundSize: 'cover' }}
+              className="h-64 w-full rounded-md"
+            ></div>
             <div className="flex gap-5 items-center">
               <div className="rounded-lg w-52 h-72">
                 <img
@@ -49,7 +52,7 @@ const Details = (props: Props) => {
                   const { id, number } = episode;
                   return (
                     <Link
-                      to={`/watch/${id}`}
+                      to={`/watch/${animeid}/${id}`}
                       onClick={() => {
                         setAnime(anime);
                         setEpisode(episode);

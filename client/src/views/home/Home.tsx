@@ -24,12 +24,11 @@ const Home = (props: Props) => {
     FETCH_COUNT,
   } = useFetch();
   if (user) {
-    startTransition(() => {
-      setUser(user);
-    });
+    setUser(user);
   }
 
-  if (pagesReady.size !== FETCH_COUNT) return <h1>Loading...</h1>;
+  if (pagesReady.size <= FETCH_COUNT) return <h1>Loading...</h1>;
+  console.log(pagesReady.size);
 
   return (
     <>
@@ -39,9 +38,11 @@ const Home = (props: Props) => {
       </Helmet>
       <main className="home flex w-full gap-5 bg-dark justify-evenly ">
         <section className="w-[75%] gap-4">
-          <SpolightBanner animes={Spotlight} />
+          {Spotlight && <SpolightBanner animes={Spotlight} />}
           <Section heading="Trending" animes={Trending} />
-          {user && <Section heading="Contunie watching" animes={ContinueWatching} />}
+          {user && ContinueWatching && (
+            <Section heading="Contunie watching" animes={ContinueWatching} />
+          )}
           <Section heading="Recently added" animes={RecentlyAdded} />
         </section>
         <aside>
