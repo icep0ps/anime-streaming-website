@@ -14,7 +14,7 @@ const EpisodeList = (props: Props) => {
   const setEpisode = useStore((state) => state.setEpisode);
 
   return (
-    <aside className="	w-full overflow-hidden">
+    <aside className="	w-full overflow-hidden border border-thirdBg p-2 bg-secondBg rounded-md">
       <h3 className="mb-4">Available episode</h3>
       <ul
         className={`flex gap-3 h-[680px] w-full overflow-y-scroll scroll ${

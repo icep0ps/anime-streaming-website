@@ -18,7 +18,7 @@ const Anime = ({ anime, continueFrom }: Props) => {
   return (
     <Link
       to={
-        continueFrom ? `/watch/${continueFrom}` : `/details/${title.userPreferred}/${id}`
+        continueFrom ? `/watch/${id}/${continueFrom}` : `/details/${title.romaji}/${id}`
       }
       onClick={() => setAnime(anime)}
     >
@@ -33,20 +33,23 @@ const Anime = ({ anime, continueFrom }: Props) => {
         </div>
         <header>
           <h3 className="font-normal text-xs mt-2 text-center line-clamp-2 	">
-            {title.userPreferred}
+            {title.romaji}
           </h3>
         </header>
         <div
           hidden={showSummary}
-          className="absolute bg-thirdBg top-16 left-20 w-60 z-10 p-3 rounded-lg "
+          className="absolute bg-secondBg top-16 left-20 w-60 z-10 p-3 rounded-lg border border-thirdBg "
         >
-          <h3 className="text-sm line-clamp-1 break-words	">{title.userPreferred}</h3>
+          <h3 className="text-sm line-clamp-1 break-words	font-bold">{title.romaji}</h3>
           <span className="text-xs py-2">
             {status} {popularity}
           </span>
           {anime.description ? (
             <>
-              <p className="line-clamp-4 text-xs ">{anime.description}</p>
+              <p
+                className="line-clamp-4 text-xs "
+                dangerouslySetInnerHTML={{ __html: anime.description }}
+              ></p>
               <ul className="text-xs">
                 <li>Type: {type}</li>
                 <li>Aired: {releaseDate}</li>

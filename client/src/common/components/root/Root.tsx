@@ -10,26 +10,29 @@ const Root = (props: Props) => {
   const user = useStore((state) => state.user);
 
   return (
-    <main className="root">
-      <nav className="flex justify-between py-5 px-3 ">
-        <div className="flex items-center justify-between w-3/12">
-          <h1 className="whitespace-nowrap mr-10">Forge streaming</h1>
-          <Search />
+    <>
+      <nav className="flex p-3 bg-secondBg  border border-thirdBg fixed z-10 w-screen justify-center ">
+        <div className="flex w-[65%] justify-between ">
+          <div className="flex items-center justify-between w-3/12">
+            <h1 className="whitespace-nowrap mr-10">Forge anime streaming</h1>
+            <Search />
+          </div>
+          <ul className="flex  gap-3 justify-evenly w-1/4 text-sm items-center">
+            <Link to={'/'}>
+              <li>Home</li>
+            </Link>
+            <Link
+              to={user ? 'http://localhost:2000/signout' : 'http://localhost:3000/signin'}
+            >
+              <li>{user ? `${user.username}` : 'sign in'}</li>
+            </Link>
+          </ul>
         </div>
-        <ul className="flex  gap-3 justify-evenly w-1/4 text-sm">
-          <Link to={'/'}>
-            <li>Home</li>
-          </Link>
-          <li>Trending</li>
-          <Link
-            to={user ? 'http://localhost:2000/signout' : 'http://localhost:3000/signin'}
-          >
-            <li>{user ? `${user.username}` : 'sign in'}</li>
-          </Link>
-        </ul>
       </nav>
-      <Outlet />
-    </main>
+      <main className="root ">
+        <Outlet />
+      </main>
+    </>
   );
 };
 

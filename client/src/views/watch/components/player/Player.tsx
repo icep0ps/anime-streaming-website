@@ -13,6 +13,7 @@ const Player = ({ streamingLink, anime, episode }: Props) => {
     <div className="flex flex-col gap-5 ">
       <div className="h-[480px] m-0 aspect-video object-cover">
         <iframe
+          style={{}}
           src={streamingLink}
           allowFullScreen={true}
           scrolling="no"

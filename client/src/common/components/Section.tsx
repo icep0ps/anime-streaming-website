@@ -12,7 +12,7 @@ const Section = (props: Props) => {
   return (
     <section>
       <header>
-        <h1 className="py-3">{heading}</h1>
+        <h1 className="py-3 text-2xl font-extrabold	">{heading}</h1>
       </header>
       <section className="flex flex-wrap justify-start gap-6 ">
         {animes?.map((anime) => {

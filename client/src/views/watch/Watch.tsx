@@ -26,6 +26,7 @@ const Watch = () => {
     if (user) {
       const data = {
         ...anime,
+        id: anime.id,
         continueFrom: episodeid,
         lastUpdated: Date.now(),
       };
@@ -53,8 +54,8 @@ const Watch = () => {
           <meta charSet="utf-8" />
           <title>Watch {title.english || title.romaji} on Forge</title>
         </Helmet>
-        <section className=" p-5 flex flex-wrap gap-10">
-          <section className="flex gap-3 w-full">
+        <section className=" p-5 flex flex-wrap gap-10 ">
+          <section className="flex gap-3 w-full mt-20">
             <Player streamingLink={headers.Referer} anime={anime} episode={episode} />
             <EpisodeList animeid={animeid || animeidfromURL} episodes={episodes} />
           </section>

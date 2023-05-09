@@ -23,12 +23,12 @@ const Details = (props: Props) => {
           <title>Watch {title} on Forge</title>
         </Helmet>
         <main className="flex justify-center ">
-          <section className="flex flex-col w-5/6  mt-10 gap-5">
+          <section className="flex flex-col w-5/6  mt-10 gap-5 mt-24">
             <div
               style={{ backgroundImage: `url(${cover})`, backgroundSize: 'cover' }}
               className="h-64 w-full rounded-md"
             ></div>
-            <div className="flex gap-5 items-center">
+            <div className="flex gap-5 items-start">
               <div className="rounded-lg w-52 h-72">
                 <img
                   src={image}

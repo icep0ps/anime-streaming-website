@@ -9,7 +9,7 @@ const PopularAnime = (props: Props) => {
   const { animes } = props;
 
   return (
-    <article className="w-full  p-5 rounded-xl flex flex-col gap-3 ">
+    <article className="w-full  p-5 rounded-md flex flex-col gap-3 border border-thirdBg bg-secondBg">
       <header>
         <h1>Top anime</h1>
       </header>
