@@ -3,16 +3,17 @@ import useStore from '../state/store';
 import { Link } from 'react-router-dom';
 import { getAnimeDetails } from '../../api/fetchers';
 import { useState } from 'react';
-import { IAnime } from '../Types';
+import { IAnime, Recommendations } from '../Types';
 
 type Props = {
-  anime: IAnime;
+  anime: IAnime | Recommendations;
   continueFrom?: string;
 };
 
 const Anime = ({ anime, continueFrom }: Props) => {
   const setAnime = useStore((state) => state.setAnime);
   const [showSummary, setShowSummary] = useState(true);
+
   const { id, title, image, popularity, type, status, genres, releaseDate } = anime;
 
   return (
@@ -55,7 +56,7 @@ const Anime = ({ anime, continueFrom }: Props) => {
                 <li>Aired: {releaseDate}</li>
                 <li className="flex gap-2 flex-wrap">
                   Genres:
-                  {genres.map((genre) => (
+                  {genres.map((genre: string) => (
                     <span className="text-main text-xs">{genre}</span>
                   ))}
                 </li>

@@ -27,7 +27,7 @@ const Watch = () => {
     if (user) {
       const data = {
         ...anime,
-        id: anime.id,
+        id: anime?.id,
         continueFrom: episodeid,
         lastUpdated: Date.now(),
       };
@@ -45,24 +45,22 @@ const Watch = () => {
       setEpisode(animeFromAPI.episodes.filter((ep) => ep.id !== episodeid)[0]);
       setAnime(animeFromAPI);
     }
-
     const { headers } = streamingLink;
-    const { title, episodes, recommendations } = anime;
 
     return (
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Watch {title.english || title.romaji} on Forge</title>
+          <title>Watch {anime?.title.english || anime?.title.romaji} on Forge</title>
         </Helmet>
         <section className=" p-5 flex flex-wrap gap-10 ">
           <section className="flex gap-3 w-full mt-20">
             <Player streamingLink={headers.Referer} anime={anime} episode={episode} />
-            <EpisodeList animeid={animeid || animeidfromURL} episodes={episodes} />
+            <EpisodeList animeid={animeid || animeidfromURL} episodes={anime?.episodes} />
           </section>
           <Section
             heading="Recommendations"
-            animes={recommendations.slice(0, 12)}
+            animes={anime!.recommendations.slice(0, 12)}
           ></Section>
         </section>
       </>

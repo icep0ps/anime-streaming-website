@@ -1,9 +1,9 @@
 import Anime from './Anime';
-import { IAnime } from '../Types';
+import { IAnime, Recommendations } from '../Types';
 
 type Props = {
   heading: string;
-  animes: IAnime[];
+  animes: IAnime[] | Recommendations[];
 };
 
 const Section = (props: Props) => {

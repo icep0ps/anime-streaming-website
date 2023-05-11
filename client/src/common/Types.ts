@@ -34,17 +34,7 @@ export type IAnime = {
   season: string;
   studios: string[];
   type: string;
-  recommendations: {
-    id: string;
-    malId: string;
-    title: string[];
-    status: string;
-    episodes: number;
-    image: string;
-    cover: string;
-    rating: number;
-    type: string;
-  }[];
+  recommendations: Recommendations[];
   characters: {
     id: string;
     role: string;
@@ -72,6 +62,23 @@ export type IAnime = {
     description: string;
   }[];
   continueFrom?: string;
+};
+
+export type Recommendations = {
+  id: string;
+  malId: string;
+  title: {
+    english: string;
+    romaji: string;
+    native: string;
+    userPreferred: string;
+  };
+  status: string;
+  episodes: number;
+  image: string;
+  cover: string;
+  rating: number;
+  type: string;
 };
 
 export type TrendingAnime = IAnime & {

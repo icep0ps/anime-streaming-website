@@ -1,9 +1,9 @@
 import { create } from 'zustand';
-import { IAnime, Episode, User } from '../Types';
+import { IAnime, Episode, User, Recommendations } from '../Types';
 
 interface StoreState {
   user: User | undefined;
-  anime: IAnime | undefined;
+  anime: IAnime | undefined | Recommendations;
   episode: Episode | undefined;
   setAnime: (anime: IAnime | undefined) => void;
   setUser: (user: User) => void;
