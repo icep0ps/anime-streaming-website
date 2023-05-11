@@ -19,13 +19,4 @@ export default defineConfig({
       plugins: [tailwindcss],
     },
   },
-  server: {
-    host: 'localhost',
-    port: 3000,
-  },
-  build: {
-    rollupOptions: {
-      external: ['react', 'react-dom', 'react-router-dom'],
-    },
-  },
 });

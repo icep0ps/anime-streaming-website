@@ -1,7 +1,7 @@
 import './index.css';
 import { lazy } from 'react';
-import React, { Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
+import { Suspense } from 'react';
+import ReactDOM from 'react-dom/client';
 import Signup from './views/signup/Signup';
 import { isUserLoggedIn } from './api/fetchers';
 import Root from './common/components/root/Root';
@@ -71,9 +71,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-const root = createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <RouterProvider router={router} />
 );
