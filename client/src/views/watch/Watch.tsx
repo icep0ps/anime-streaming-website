@@ -1,3 +1,4 @@
+import { Loading } from './Loading';
 import { Helmet } from 'react-helmet';
 import useFetch from './hooks/useFetch';
 import { useEffect, useState } from 'react';
@@ -37,7 +38,7 @@ const Watch = () => {
     }
   }, [episodeid]);
 
-  if (isLoading && isAnimeLoading) return <h1>Loading...</h1>;
+  if (isLoading && isAnimeLoading) return <Loading />;
 
   if (streamingLink && (anime || animeFromAPI)) {
     if (animeFromAPI) {
@@ -66,6 +67,8 @@ const Watch = () => {
         </section>
       </>
     );
+  } else {
+    return <Loading />;
   }
 };
 

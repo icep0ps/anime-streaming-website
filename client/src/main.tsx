@@ -17,7 +17,11 @@ const router = createBrowserRouter([
         path: '/',
         element: (() => {
           const Home = lazy(() => import('./views/home/Home'));
-          return <Home />;
+          return (
+            <Suspense fallback={<div>Loading home</div>}>
+              <Home />
+            </Suspense>
+          );
         })(),
 
         loader: isUserLoggedIn,
@@ -34,21 +38,33 @@ const router = createBrowserRouter([
         path: '/search/:animeid',
         element: (() => {
           const Search = lazy(() => import('./views/search/Search'));
-          return <Search />;
+          return (
+            <Suspense fallback={<div>Loading search</div>}>
+              <Search />
+            </Suspense>
+          );
         })(),
       },
       {
         path: 'watch/:animeid/:episodeid',
         element: (() => {
           const Watch = lazy(() => import('./views/watch/Watch'));
-          return <Watch />;
+          return (
+            <Suspense fallback={<div>Loading watch</div>}>
+              <Watch />
+            </Suspense>
+          );
         })(),
       },
       {
         path: 'details/:animetitle/:animeid',
         element: (() => {
           const Details = lazy(() => import('./views/details/Details'));
-          return <Details />;
+          return (
+            <Suspense fallback={<div>Loading details</div>}>
+              <Details />
+            </Suspense>
+          );
         })(),
       },
     ],
@@ -56,7 +72,5 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <Suspense fallback={<h1>Loading...</h1>}>
-    <RouterProvider router={router} />
-  </Suspense>
+  <RouterProvider router={router} />
 );

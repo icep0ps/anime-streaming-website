@@ -11,7 +11,7 @@ const Root = (props: Props) => {
 
   return (
     <>
-      <nav className="flex p-3 bg-secondBg  border border-thirdBg fixed z-10 w-screen justify-center ">
+      <nav className="flex p-3 bg-dark  fixed z-10 w-screen justify-center ">
         <div className="flex w-[65%] justify-between ">
           <div className="flex items-center justify-between w-3/12">
             <h1 className="whitespace-nowrap mr-10">Forge anime streaming</h1>

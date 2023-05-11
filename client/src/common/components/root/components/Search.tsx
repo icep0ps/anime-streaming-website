@@ -26,6 +26,7 @@ const Search = (props: Props) => {
     <div>
       <form
         onSubmit={(event) => {
+          setStartSearch(false);
           event.preventDefault();
           navigate(`/search/${query}`);
         }}

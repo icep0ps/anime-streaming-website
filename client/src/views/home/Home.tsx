@@ -1,11 +1,11 @@
+import { Loading } from './Loading';
 import { Helmet } from 'react-helmet';
 import useFetch from './hooks/useFetch';
 import { User } from '../../common/Types';
-import PopularAnime from './sidebars/PopularAnime';
-import SpolightBanner from './trending/Trending';
 import useStore from '../../common/state/store';
 import { useLoaderData } from 'react-router-dom';
-import { useEffect } from 'react';
+import SpolightBanner from './trending/Trending';
+import PopularAnime from './sidebars/PopularAnime';
 import Section from '../../common/components/Section';
 
 type Props = {};
@@ -19,39 +19,8 @@ const Home = (props: Props) => {
   if (user) {
     setUser(user);
   }
-  console.log(arePagesReady());
-  if (arePagesReady())
-    return (
-      <main className="home flex w-full gap-5 bg-dark justify-evenly mt-10">
-        <section className="w-[75%] gap-4 flex flex-col gap-5">
-          <div
-            role="status"
-            className="flex items-center justify-center h-56  bg-thirdBg rounded-lg animate-pulse dark:bg-thirdBg"
-          ></div>
 
-          <section className="flex gap-5">
-            <div
-              role="status"
-              className="flex items-center justify-center h-64 w-48 bg-thirdBg rounded-lg animate-pulse dark:bg-thirdBg"
-            ></div>
-          </section>
-        </section>
-        <aside>
-          <div
-            role="status"
-            className="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-              </div>
-              <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-          </div>
-        </aside>
-      </main>
-    );
+  if (arePagesReady()) return <Loading />;
 
   return (
     <>

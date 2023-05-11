@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import { Loading } from './Loading';
 import { Helmet } from 'react-helmet';
 import useFetch from './hooks/useFetch';
 import useStore from '../../common/state/store';
@@ -12,7 +12,7 @@ const Details = (props: Props) => {
   const setAnime = useStore((state) => state.setAnime);
   const setEpisode = useStore((state) => state.setEpisode);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <Loading />;
   if (anime) {
     const { title: titles, description, episodes, image, cover } = anime;
     const title = titles.english || titles.romaji;

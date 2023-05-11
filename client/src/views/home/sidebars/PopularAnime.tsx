@@ -14,7 +14,7 @@ const PopularAnime = (props: Props) => {
         <h1>Top anime</h1>
       </header>
       <section className=" flex flex-col gap-3 ">
-        {animes.map((anime, index) => {
+        {animes?.map((anime, index) => {
           const { id } = anime;
           return <Anime key={id} anime={anime} />;
         })}
