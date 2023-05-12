@@ -19,15 +19,7 @@ export const topAnime: Fetcher<IAnime[]> = (url: string) =>
   axios.get(url).then((res) => res.data.results);
 
 export const trendingAnime: Fetcher<IAnime[]> = (url: string) =>
-  axios
-    .get(url, {
-      proxy: {
-        protocol: 'https',
-        host: '127.0.0.1',
-        port: 3000,
-      },
-    })
-    .then((res) => res.data.data);
+  axios.get(url).then((res) => res.data.data);
 
 export const getStreamingLink: Fetcher<StreamingLinkDetails> = (url: string) =>
   axios.get(url).then((res) => res.data);
@@ -45,7 +37,7 @@ export const search = (args: [url: string, query: string]) => {
 
 export const isUserLoggedIn = () => {
   return axios
-    .get('http://localhost:2000/isLoggedIn', {
+    .get('/api/isLoggedIn', {
       withCredentials: true,
     })
     .then((res) => res.data.user)

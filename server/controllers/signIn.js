@@ -15,7 +15,7 @@ async function signIn(req, res) {
       if (results) {
         const token = createToken(user);
         res.cookie('x-access-token', token, { httpOnly: true });
-        res.status(200).redirect('http://localhost:3000/');
+        res.status(200).redirect('/');
       } else {
         res.status(400).send('incorrect password');
       }

@@ -28,7 +28,6 @@ async function getTrending(req, res) {
       });
     res.json({ data: data });
   } catch (error) {
-    console.log(error.message);
     res.status(500).send('sorry an unexpected error occured');
   }
 }

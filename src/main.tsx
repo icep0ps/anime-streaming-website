@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import Signup from './views/signup/Signup';
+import { redirect } from 'react-router-dom';
 import { isUserLoggedIn } from './api/fetchers';
 import Root from './common/components/root/Root';
 import ErrorPage from './views/error/error-page';
@@ -28,11 +29,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/signup',
-        element: <Signup action="http://localhost:2000/signup" type="signup" />,
+        element: <Signup action="/api/signup" type="signup" />,
       },
       {
         path: '/signin',
-        element: <Signup action="http://localhost:2000/signin" type="signin" />,
+        element: <Signup action="/api/signin" type="signin" />,
       },
       {
         path: '/search/:animeid',

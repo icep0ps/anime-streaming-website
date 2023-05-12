@@ -1,3 +1,4 @@
+import axios from 'axios';
 import '../../../App.css';
 import useStore from '../../state/store';
 import Search from './components/Search';
@@ -21,11 +22,26 @@ const Root = (props: Props) => {
             <Link to={'/'}>
               <li>Home</li>
             </Link>
-            <Link
-              to={user ? 'http://localhost:2000/signout' : 'http://localhost:3000/signin'}
-            >
-              <li>{user ? `${user.username}` : 'sign in'}</li>
-            </Link>
+            {user ? (
+              <li
+                className="cursor-pointer"
+                onClick={() =>
+                  axios.post('/api/signout').catch((err) => {
+                    if (err.response && err.response.status === 401) {
+                      window.location.href = '/';
+                    } else {
+                      // Handle error however you want
+                    }
+                  })
+                }
+              >
+                {user.username}
+              </li>
+            ) : (
+              <Link to={'/signin'}>
+                <li>signin</li>
+              </Link>
+            )}
           </ul>
         </div>
       </nav>

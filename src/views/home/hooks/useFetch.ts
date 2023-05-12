@@ -10,7 +10,7 @@ const useFetch = () => {
   const user = useStore((state) => state.user);
 
   const { data: Spotlight, isLoading: SpotlightIsLoading } = useSWR(
-    'http://localhost:2000/trending',
+    '/api/trending',
     Localfetcher
   );
 
@@ -29,7 +29,7 @@ const useFetch = () => {
     Apifetcher
   );
   const { data: ContinueWatching, isLoading: ContinueWatchingIsLoading } = useSWR(
-    'http://localhost:2000/continueWatching',
+    '/api/continueWatching',
     Localfetcher
   );
 

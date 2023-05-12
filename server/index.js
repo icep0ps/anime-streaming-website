@@ -1,5 +1,6 @@
 var cors = require('cors');
 require('dotenv').config();
+var morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -12,9 +13,19 @@ const getTrending = require('./controllers/getTrending');
 const isUserLoggedIn = require('./controllers/isLoggedIn');
 const { getContinueWatching, addToWatching } = require('./controllers/continueWatching');
 
-const PORT = process.env.PORT || 2000;
+// if not in production use the port 5000
+const PORT = process.env.PORT || 3000;
 const app = express();
+app.use(morgan('tiny'));
 const url = process.env.CONNECTION_STRING;
+
+const path = require('path');
+
+// serve up production assets
+app.use(express.static(path.resolve(__dirname, '..', 'dist')));
+
+// let the react app to handle any unknown routes
+// serve up the index.html if express does'nt recognize the route
 
 // need the cors options below if trying to send req with "withCredentials: true" in axios
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
@@ -27,19 +38,27 @@ async function connectDB() {
 }
 connectDB();
 
-app.post('/signup', signUp);
+app.get('/api/isLoggedIn', verifyToken, isUserLoggedIn);
 
-app.post('/signin', signIn);
+app.get('/api/trending', getTrending);
 
-app.get('/isLoggedIn', verifyToken, isUserLoggedIn);
+app.get('/api/continueWatching', verifyToken, getContinueWatching);
 
-app.get('/signout', signOut);
+app.post('/api/signout', signOut);
 
-app.get('/trending', getTrending);
+app.post('/api/signup', signUp);
 
-app.get('/continueWatching', verifyToken, getContinueWatching);
+app.post('/api/signin', signIn);
 
-app.post('/continueWatching', verifyToken, addToWatching);
+app.post('/api/continueWatching', verifyToken, addToWatching);
+
+/* need to put this line below get request or else it will return static html fines see:
+https://stackoverflow.com/questions/44289385/html-is-being-sent-instead-of-json-data
+*/
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

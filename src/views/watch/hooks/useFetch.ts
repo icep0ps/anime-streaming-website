@@ -1,4 +1,3 @@
-import React from 'react';
 import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
 import { addToWatching, getStreamingLink } from '../../../api/fetchers';
@@ -10,7 +9,7 @@ type Props = {
 const useFetch = (props: Props) => {
   const { episodeid } = props;
   const { trigger: addAnimeToWatching } = useSWRMutation(
-    'http://localhost:2000/continueWatching',
+    '/api/continueWatching',
     addToWatching
   );
 

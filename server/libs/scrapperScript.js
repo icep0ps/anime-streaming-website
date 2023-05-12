@@ -26,7 +26,6 @@ async function run() {
     const clearCollection = await trending.deleteMany({});
     console.log('Srending collection cleared successfully');
     console.log('Starting data insertion into collection');
-    console.log(data);
     const insertTrendingData = await trending.insertMany(data);
 
     let ids = insertTrendingData.insertedIds;

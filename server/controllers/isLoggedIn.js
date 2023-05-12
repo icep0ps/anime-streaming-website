@@ -3,7 +3,7 @@ function isUserLoggedIn(req, res) {
   if (user) {
     res.status(200).json({ user });
   } else {
-    res.status(401).json({ user: undefined });
+    res.status(401).json({ user: null });
   }
 }
 

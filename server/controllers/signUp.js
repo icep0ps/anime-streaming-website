@@ -14,7 +14,7 @@ function signUp(req, res) {
     user.save().catch((err) => res.status(400).json({ msg: 'err' }));
     const token = createToken(user);
     res.cookie('x-access-token', token, { httpOnly: true });
-    res.status(200).redirect('http://localhost:3000/');
+    res.status(200).redirect('/');
   });
 }
 module.exports = signUp;

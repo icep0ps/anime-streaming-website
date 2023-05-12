@@ -11,6 +11,8 @@ export default defineConfig({
   define: {
     'process.env': {
       ANILIST_BASE_URL: 'https://api.consumet.org/meta/anilist',
+      CONNECTION_STRING:
+        'mongodb+srv://admin:MgqocGEnA5i7tExu@cluster0.ejlgslk.mongodb.net/?retryWrites=true&w=majority',
       GOGO_ANIME_BASE_URL: 'https://api.consumet.org/anime/gogoanime/',
     },
   },
