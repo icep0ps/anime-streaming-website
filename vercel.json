@@ -9,11 +9,5 @@
   "buildCommand": "npm run build",
   "devCommand": "npm --prefix server run server --port 3000",
   "installCommand": "npm install && npm --prefix server install",
-  "outputDirectory": "dist",
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server/api/index.js"
-    }
-  ]
+  "outputDirectory": "dist"
 }
