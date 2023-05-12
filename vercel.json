@@ -1,0 +1,20 @@
+{
+  "version": 2,
+
+  "buildCommand": "npm run build",
+  "devCommand": "npm --prefix server run server --port 3000",
+  "installCommand": "npm install && npm --prefix server install",
+  "outputDirectory": "dist",
+  "builds": [
+    {
+      "src": "./index.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server/api/index.js"
+    }
+  ]
+}
