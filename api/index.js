@@ -5,13 +5,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-const signIn = require('../controllers/signIn');
-const signUp = require('../controllers/signUp');
-const { verifyToken } = require('../libs/token');
-const signOut = require('../controllers/signOut');
-const getTrending = require('../controllers/getTrending');
-const isUserLoggedIn = require('../controllers/isLoggedIn');
-const { getContinueWatching, addToWatching } = require('../controllers/continueWatching');
+const signIn = require('../server/controllers/signIn');
+const signUp = require('../server/controllers/signUp');
+const { verifyToken } = require('../server/libs/token');
+const signOut = require('../server/controllers/signOut');
+const getTrending = require('../server/controllers/getTrending');
+const isUserLoggedIn = require('../server/controllers/isLoggedIn');
+const {
+  getContinueWatching,
+  addToWatching,
+} = require('../server/controllers/continueWatching');
 
 // if not in production use the port 5000
 const PORT = process.env.PORT || 3000;
