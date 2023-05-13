@@ -20,7 +20,6 @@ const {
 const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(morgan('tiny'));
-const url = process.env.CONNECTION_STRING;
 
 const path = require('path');
 
@@ -37,7 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 async function connectDB() {
-  await mongoose.connect(url);
+  await mongoose.connect(process.env.CONNECTION_STRING);
 }
 connectDB();
 
